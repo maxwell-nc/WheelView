@@ -378,15 +378,8 @@ public class WheelView<T> extends ListView implements IWheelView<T> {
     @Override
     public void setSelection(final int selection) {
         mSelection = selection;
-        setVisibility(View.INVISIBLE);
-        WheelView.this.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                WheelView.super.setSelection(getRealPosition(selection));
-                refreshCurrentPosition(false);
-                setVisibility(View.VISIBLE);
-            }
-        }, 500);
+        WheelView.super.setSelection(getRealPosition(selection));
+        refreshCurrentPosition(false);
     }
 
     /**
@@ -567,8 +560,7 @@ public class WheelView<T> extends ListView implements IWheelView<T> {
         mWheelAdapter.setCurrentPosition(position);
         mHandler.removeMessages(WheelConstants.WHEEL_SCROLL_HANDLER_WHAT);
         mHandler.sendEmptyMessageDelayed(WheelConstants
-                .WHEEL_SCROLL_HANDLER_WHAT, WheelConstants
-                .WHEEL_SCROLL_DELAY_DURATION);
+                .WHEEL_SCROLL_HANDLER_WHAT, 10);
     }
 
     /**
